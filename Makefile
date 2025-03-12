@@ -36,7 +36,7 @@ check-tailwind:
 	$(CD_CMD) python manage.py tailwind check-updates
 
 # Tailwind commands
-tailwind:
+tailwind-build:
 	$(CD_CMD) python manage.py tailwind build
 
 # Add a tailwind install command

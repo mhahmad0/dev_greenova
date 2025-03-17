@@ -1,0 +1,13 @@
+<nav aria-label="Breadcrumb navigation" role="navigation">
+  <ol>
+    {% for crumb in crumbs %}
+      <li>
+        {% if crumb.active %}
+          <span aria-current="page">{{ crumb.title }}</span>
+        {% else %}
+          <a href="{{ crumb.url }}">{{ crumb.title }}</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ol>
+</nav>

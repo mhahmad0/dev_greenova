@@ -143,6 +143,7 @@ INSTALLED_APPS = [
     "django_browser_reload",
     "debug_toolbar",
     "django.contrib.humanize",
+    "users",
 ]
 
 # Django-Matplotlib configuration

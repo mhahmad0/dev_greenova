@@ -63,7 +63,7 @@ setup_venv() {
   if [ -f "requirements.txt" ]; then
     echo "Installing Python requirements with constraints..."
     if [ -f "constraints.txt" ]; then
-      pip install -r requirements.txt -c constraints.txt
+      pip install -r requirements.txt -c constraints.txt --no-deps
     else
       echo "Warning: constraints.txt not found, installing without constraints"
       pip install -r requirements.txt

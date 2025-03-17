@@ -1,6 +1,6 @@
 {
   "name": "Greenova Development",
-  "image": "mcr.microsoft.com/devcontainers/python:3.10",
+  "image": "mcr.microsoft.com/devcontainers/python:3.9",
   "features": {},
   "hostRequirements": {
     "cpus": 2,
@@ -42,7 +42,7 @@
         "python.defaultInterpreterPath": "${containerWorkspaceFolder}/.venv/bin/python",
         "python.envFile": "${containerWorkspaceFolder}/.env",
         "python.analysis.extraPaths": [
-          "${containerWorkspaceFolder}/.venv/lib/python3.10/site-packages"
+          "${containerWorkspaceFolder}/.venv/lib/python3.9/site-packages"
         ],
         "terminal.integrated.cwd": "${containerWorkspaceFolder}",
         "terminal.integrated.defaultProfile.linux": "bash",

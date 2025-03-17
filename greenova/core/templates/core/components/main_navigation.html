@@ -1,0 +1,13 @@
+<nav aria-label="Primary navigation" role="navigation" class="main-navigation">
+  <ul>
+    {% for item in navigation_items %}
+      <li>
+        <a href="{% url item.1 %}"
+           {% if current_namespace == item.1.split:':'.0 %}aria-current="page"{% endif %}
+           class="{{ item.2 }}">
+          {{ item.0 }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</nav>

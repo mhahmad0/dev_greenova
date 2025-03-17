@@ -34,9 +34,8 @@ urlpatterns: List[Union[URLPattern, URLResolver]] = [
 
     # Authentication URLs
     path('authentication/', include('allauth.urls')),
-
-    # Protected URLs that require login
-    path('dashboard/', include('dashboard.urls')),
+    path('dashboard/', include('dashboard.urls', namespace="dashboard")),
+    path('users/', include('users.urls', namespace="users")),
     path('projects/', include('projects.urls')),
     path('obligations/', include('obligations.urls')),
     path('chat/', include('chatbot.urls')),

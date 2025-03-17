@@ -1,22 +1,28 @@
-/* Import custom normaliser to fit our rules */
-@import 'base.css';
+/* Import Modern Normalize */
+@import url('vendor/modern-normalize.min.css');
 
-/* Import Third-party libraries */
-@import 'vendor/pico-classless.min.css';
+/* Import PicoCSS */
+@import url('vendor/pico-classless.min.css');
 
-/* Load themes */
-@import 'components/theme-dark.css';
-@import 'components/theme-light.css';
+/* Import base styles */
+@import url('base.css');
 
-/* Main stylesheet that imports all modular components  */
-@import 'components/colours.css';
-@import 'components/design.css';
-@import 'components/navigation.css';
-@import 'components/button.css';
-@import 'components/form.css';
-@import 'components/card.css';
-@import 'components/charts.css';
-@import 'components/filter.css';
-@import 'components/list.css';
-@import 'components/obligations.css';
-@import 'components/pagination.css';
+/* Import design variables */
+@import url('components/design.css');
+
+/* Import theme-specific colors */
+@import url('components/colours.css');
+@import url('components/theme-light.css');
+@import url('components/theme-dark.css');
+
+/* Import component-specific styles */
+@import url('components/navigation.css');
+@import url('components/button.css');
+@import url('components/card.css');
+@import url('components/charts.css');
+@import url('components/form.css');
+@import url('components/list.css');
+@import url('components/filter.css');
+@import url('components/pagination.css');
+@import url('components/obligations.css');
+@import url('components/user-profile.css');

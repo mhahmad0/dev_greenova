@@ -1,11 +1,8 @@
-/* Import Modern Normalize */
-@import url('vendor/modern-normalize.min.css');
+/* Import base styles */
+@import url('base.css');
 
 /* Import PicoCSS */
 @import url('vendor/pico-classless.min.css');
-
-/* Import base styles */
-@import url('base.css');
 
 /* Import design variables */
 @import url('components/design.css');

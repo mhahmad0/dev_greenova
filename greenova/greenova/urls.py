@@ -25,7 +25,6 @@ def home_router(request: HttpRequest) -> Union[HttpResponseRedirect, HttpRespons
     return redirect('dashboard:home')
 
 urlpatterns: List[Union[URLPattern, URLResolver]] = [
-
     path("__reload__/", include("django_browser_reload.urls")),
     # Landing page should be first to take precedence
     path('', home_router, name='home'),
@@ -40,7 +39,11 @@ urlpatterns: List[Union[URLPattern, URLResolver]] = [
     path('obligations/', include('obligations.urls')),
     path('chat/', include('chatbot.urls')),
     path('mechanisms/', include('mechanisms.urls')),
-    path('procedures/', include('procedures.urls')),  # Added procedures URLs
+    path('procedures/', include('procedures.urls')),
+    # Add company URLs
+    path('company/', include('company.urls', namespace="company")),
+    # Add responsibility URLs - create a new file for this
+    path('responsibility/', include('responsibility.urls')),
 ] + debug_toolbar_urls()
 
 if settings.DEBUG:

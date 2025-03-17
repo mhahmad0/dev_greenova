@@ -1,107 +1,81 @@
-<section class="profile-details">
-  <div class="profile-header">
-    <div class="profile-image-container">
-      {% if profile.profile_image %}
-        <img src="{{ profile.profile_image.url }}" alt="Profile image for {{ profile.user.username }}" class="profile-image" />
-      {% else %}
-        <div class="profile-image placeholder">
-          {{ profile.user.username|slice:":1"|upper }}
-        </div>
-      {% endif %}
+{% load static %}
+{% load user_tags %}
+{% load company_tags %}
 
-      <div class="image-upload"
-           _="on dragover halt the event
-              add .dragover to me
-              on dragleave remove .dragover from me
-              on drop halt the event
-              remove .dragover from me
-              call upload(event.dataTransfer.files[0])">
-        <form id="imageUploadForm" enctype="multipart/form-data">
-          {% csrf_token %}
-          <input type="file" name="profile_image" id="profile_image" accept="image/*"
-                 _="on change call upload(this.files[0])" />
-          <label for="profile_image">Change photo</label>
-        </form>
+<section aria-labelledby="profile-heading">
+  <div class="profile-info">
+    <div class="profile-header">
+      <div class="profile-image-container">
+        {% if profile.profile_image %}
+          <img src="{{ profile.profile_image.url }}" alt="Profile picture" class="profile-image">
+        {% else %}
+          <div class="profile-initial">{{ profile.user.username|first|upper }}</div>
+        {% endif %}
+      </div>
+
+      <div class="profile-details">
+        <h2 id="profile-heading">{{ profile.user.get_full_name|default:profile.user.username }}</h2>
+        <p class="profile-position">{{ profile.position|default:"" }}</p>
+        <p class="profile-department">{{ profile.department|default:"" }}</p>
       </div>
     </div>
 
-    <div class="profile-name">
-      <h2>{{ profile.user.get_full_name|default:profile.user.username }}</h2>
-      <p>{{ profile.position }}</p>
-      <p>{{ profile.department }}</p>
+    <div class="profile-content">
+      <div class="profile-section">
+        <h3>Contact Information</h3>
+        <dl>
+          <dt>Email:</dt>
+          <dd>{{ profile.user.email }}</dd>
+
+          <dt>Phone:</dt>
+          <dd>{{ profile.phone_number|default:"Not provided" }}</dd>
+        </dl>
+      </div>
+
+      <div class="profile-section">
+        <h3>About Me</h3>
+        <div class="profile-bio">
+          {{ profile.bio|default:"No bio information provided."|linebreaks }}
+        </div>
+      </div>
+
+      <!-- New section for company affiliations -->
+      <div class="profile-section company-affiliations">
+        <h3>Company Affiliations</h3>
+        {% with memberships=profile.user.company_memberships.all %}
+          {% if memberships %}
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Company</th>
+                  <th scope="col">Role</th>
+                  <th scope="col">Primary</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for membership in memberships %}
+                <tr>
+                  <td><a href="{% url 'company:detail' membership.company.id %}">{{ membership.company.name }}</a></td>
+                  <td>{{ membership.role|company_role_badge }}</td>
+                  <td>{% if membership.is_primary %}<mark role="status" class="success">Yes</mark>{% endif %}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          {% else %}
+            <p>No company affiliations.</p>
+          {% endif %}
+        {% endwith %}
+      </div>
     </div>
   </div>
 
-  <div class="profile-body">
-    <dl>
-      <dt>Username</dt>
-      <dd>{{ profile.user.username }}</dd>
-
-      <dt>Email</dt>
-      <dd>{{ profile.user.email }}</dd>
-
-      {% if profile.phone_number %}
-        <dt>Phone</dt>
-        <dd>{{ profile.phone_number }}</dd>
-      {% endif %}
-
-      {% if profile.bio %}
-        <dt>Bio</dt>
-        <dd>{{ profile.bio }}</dd>
-      {% endif %}
-
-      <dt>Account Since</dt>
-      <dd>{{ profile.user.date_joined|date:"F j, Y" }}</dd>
-    </dl>
-  </div>
-
   <div class="profile-actions">
-    <button class="btn-primary"
-            hx-get="{% url 'users:profile_edit' %}"
-            hx-target=".profile-container"
-            hx-push-url="true">
+    <a href="{% url 'users:profile_edit' %}" class="btn-primary" hx-get="{% url 'users:profile_edit' %}" hx-target=".profile-container" hx-swap="innerHTML">
       Edit Profile
-    </button>
-
-    <button class="btn-secondary"
-            hx-get="{% url 'users:change_password' %}"
-            hx-target=".profile-container"
-            hx-push-url="true">
+    </a>
+    <a href="{% url 'users:change_password' %}" class="btn-secondary" hx-get="{% url 'users:change_password' %}" hx-target=".profile-container" hx-swap="innerHTML">
       Change Password
-    </button>
+    </a>
   </div>
 </section>
-
-<script>
-  function upload(file) {
-    if (!file) return;
-
-    const formData = new FormData();
-    formData.append('profile_image', file);
-    formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
-
-    fetch('{% url "users:upload_profile_image" %}', {
-      method: 'POST',
-      body: formData,
-      credentials: 'same-origin'
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.status === 'success') {
-        const imageEl = document.querySelector('.profile-image');
-        if (imageEl && imageEl.tagName === 'IMG') {
-          imageEl.src = data.image_url + '?timestamp=' + new Date().getTime();
-        } else {
-          const container = document.querySelector('.profile-image-container');
-          container.innerHTML = `<img src="${data.image_url}?timestamp=${new Date().getTime()}" alt="Profile image" class="profile-image">`;
-        }
-      } else {
-        alert('Failed to upload image: ' + JSON.stringify(data.errors));
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('An error occurred while uploading your image.');
-    });
-  }
-</script>

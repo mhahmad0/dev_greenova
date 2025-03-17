@@ -10,8 +10,8 @@ VENV = .venv
 venv:
 	@echo "Creating virtual environment..."
 	@python3 -m venv .venv
-	@source .venv/bin/activate
 	@echo "Virtual environment created."
+	@echo "To activate it, run: source .venv/bin/activate"
 
 # Install dependencies
 install:

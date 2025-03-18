@@ -1,7 +1,12 @@
 {
   "name": "Greenova Development",
   "image": "mcr.microsoft.com/devcontainers/python:3.9",
-  "features": {},
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {
+      "installDirectlyFromGitHubRelease": true,
+      "version": "latest"
+    }
+  },
   "hostRequirements": {
     "cpus": 2,
     "memory": "2gb",

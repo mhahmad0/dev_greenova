@@ -2,6 +2,8 @@
 
 /* The menu for breadcrumbs */
 nav.breadcrumb-container {
+  margin-left: var(--greenova-spacing);
+  margin-right: auto;
   padding: var(--greenova-padding) var(--greenova-padding-large);
 }
 
@@ -13,15 +15,24 @@ nav.breadcrumb-container>ul {
 }
 
 /* Breadcrumbs */
-nav.breadcrumb-container>ul>li.menubar-breadcrumbs {}
+nav.breadcrumb-container>ul>li.menubar-breadcrumbs {
+  display: flex;
+  flex-flow: row;
+}
 
 /* Container for individual breadcrumbs */
 nav.breadcrumb-container>ul>li.menubar-breadcrumbs>nav[role=navigation] {
   /* Align left*/
   margin: 0;
   padding: 0;
+  border-radius: var(--greenova-border-radius);
   background: var(--greenova-beige-primary);
   align-self: flex-start;
+}
+
+/* Force styling to be in a straight row*/
+nav.breadcrumb-container>ul>li.menubar-breadcrumbs>nav[role=navigation]>ol {
+  display: flex;
 }
 
 /* Styling for individual breadcrumb */
@@ -32,41 +43,4 @@ nav.breadcrumb-container>ul>li.menubar-breadcrumbs>nav[role=navigation] [role=me
   &[aria-current] {
     background: var(--greenova-beige-secondary);
   }
-}
-
-/* Chatbot */
-nav.breadcrumb-container>ul>li.auth-actions {
-  /* Align right*/
-  margin-left: auto;
-  margin-right: 0;
-  align-self: flex-end;
-}
-
-/* Breadcrumbs */
-.breadcrumbs {
-  display: flex;
-  list-style: none;
-  padding: 0;
-  margin: 0 0 1rem 0;
-  flex-wrap: wrap;
-}
-
-.breadcrumbs li {
-  display: flex;
-  align-items: center;
-}
-
-.breadcrumbs li:not(:last-child)::after {
-  content: "/";
-  margin: 0 0.5rem;
-  color: var(--greenova-tertiary-dark);
-}
-
-.breadcrumbs a {
-  color: var(--greenova-text-primary-dark);
-  text-decoration: none;
-}
-
-.breadcrumbs a:hover {
-  text-decoration: underline;
 }

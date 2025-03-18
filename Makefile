@@ -10,8 +10,8 @@ VENV = .venv
 venv:
 	@echo "Creating virtual environment..."
 	@python3 -m venv .venv
-	@source .venv/bin/activate
 	@echo "Virtual environment created."
+	@echo "To activate it, run: source .venv/bin/activate"
 
 # Install dependencies
 install:
@@ -20,35 +20,43 @@ install:
 	$(VENV)/bin/pip install -r requirements.txt -c constraints.txt
 	@echo "Dependencies installed."
 
+#Freeze installed dependencies to requirements.txt
 freeze:
 	@echo "Freezing dependencies..."
 	$(VENV)/bin/pip freeze > requirements.txt
 	@echo "Dependencies frozen."
 
+#Create a Django new app
 app:
 	@if [ -z "$(name)" ]; then echo "Error: Please provide app name with 'make app name=yourappname'"; exit 1; fi
 	$(CD_CMD) python3 manage.py startapp $(name)
 
+#pull .env file from dotenv-vault
 dotenv-pull:
 	@echo "Pulling .env file from dotenv-vault"
 	@npx dotenv-vault@latest pull
 
+#push .env file to dotenv-vault
 dotenv-push:
 	@echo "Pushing .env file to dotenv-vault"
 	@npx dotenv-vault@latest push
 
+#run django system check
 check:
 	$(CD_CMD) python3 manage.py check
 
 # Updated run command with better process management
+#run Tailwind CSS and Django server
 run:
 	@echo "Starting Tailwind CSS and Django server..."
 	@$(CD_CMD) (python3 manage.py tailwind start > logs/tailwind.log 2>&1 & echo "Tailwind started (logs in logs/tailwind.log)") && python3 manage.py runserver
 
 # Alternative approach with separate commands
+#start only Django server
 run-django:
 	$(CD_CMD) python3 manage.py runserver
 
+#Start only Tailwind CSS
 run-tailwind:
 	$(CD_CMD) python3 manage.py tailwind start
 
@@ -66,6 +74,7 @@ check-tailwind:
 	$(CD_CMD) python3 manage.py tailwind check-updates
 
 # Tailwind commands
+#Build tailwind CSS
 tailwind-build:
 	$(CD_CMD) python3 manage.py tailwind build
 
@@ -73,36 +82,47 @@ tailwind-build:
 tailwind-install:
 	$(CD_CMD) python3 manage.py tailwind install
 
+#Create database migrations
 migrations:
 	$(CD_CMD) python3 manage.py makemigrations
 
+#Apply database migrations
 migrate:
 	$(CD_CMD) python3 manage.py migrate
 
+#collect static files to staticfiles
 static:
 	$(CD_CMD) python3 manage.py collectstatic --clear --noinput
 
+#Create Django superuser
 user:
 	$(CD_CMD) python3 manage.py createsuperuser
 
+#Import data from CSV file
 import:
 	$(CD_CMD) python3 manage.py import_obligations clean_output_with_nulls.csv
 
+#Update data from CSV file
 update:
 	$(CD_CMD) python3 manage.py import_obligations clean_output_with_nulls.csv --force-update
 
+#synchronize mechanisms
 sync:
 	$(CD_CMD) python3 manage.py sync_mechanisms
 
+#Update recurring inspection dates
 update-recurring-dates:
 	$(CD_CMD) python3 manage.py update-recurring-inspection-dates
 
+#Normalize existing frequencies
 normalize-frequencies:
 	$(CD_CMD) python3 manage.py normalize_existing_frequencies
 
+#Clean CSV file
 clean-csv:
 	$(CD_CMD) python3 manage.py clean_csv_to_import dirty.csv
 
+#Run production server
 prod:
 	$(CD_CMD) /bin/sh scripts/prod_urls.sh
 
@@ -114,12 +134,15 @@ tailwind:
 db: migrations migrate
 
 # Template linting commands
+#Lint Django template files
 lint-templates:
 	djlint greenova/**/templates --lint
 
+#Format Django template files
 format-templates:
 	djlint greenova/**/templates --reformat
 
+#Check template formatting without changes
 check-templates:
 	djlint greenova/**/templates --check
 
@@ -157,9 +180,9 @@ help:
 	@echo "  make migrations   - Create new migrations"
 	@echo "  make run          - Start development server"
 	@echo "  make tailwind     - Start Tailwind CSS server"
-	@echo "	make venv           - Create virtual environment"
-	@echo "	make install        - Install dependencies"
-	@echo "	make clean          - Remove virtual environment and clean temporary files"
-	@echo "	make freeze		- Freeze dependencies"
-	@echo "	make dotenv-pull	- Pull .env file from dotenv-vault"
-	@echo "	make dotenv-push	- Push .env file to dotenv-vault"
+	@echo "  make venv           - Create virtual environment"
+	@echo "  make install        - Install dependencies"
+	@echo "  make clean          - Remove virtual environment and clean temporary files"
+	@echo "  make freeze		 - Freeze dependencies"
+	@echo "  make dotenv-pull	 - Pull .env file from dotenv-vault"
+	@echo "  make dotenv-push	 - Push .env file to dotenv-vault"

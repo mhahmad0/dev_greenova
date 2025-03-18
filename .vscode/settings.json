@@ -279,5 +279,52 @@
     "${workspaceFolder}/.venv/lib/python3.9/site-packages"
   ],
   "mypy-type-checker.reportingScope": "file",
-  "github.copilot.editor.enableCodeActions": true
+  "github.copilot.editor.enableCodeActions": true,
+  "githubPullRequests.allowFetch": true,
+  "githubPullRequests.assignCreated": "author",
+  "githubPullRequests.commentExpandState": "expandUnresolved",
+  "github.copilot.chat.codesearch.enabled": true,
+  "github.copilot.chat.copilotDebugCommand.enabled": true,
+  "githubPullRequests.defaultDeletionMethod.selectLocalBranch": true,
+  "githubPullRequests.defaultDeletionMethod.selectRemote": true,
+  "githubPullRequests.defaultMergeMethod": "squash",
+  "githubPullRequests.experimental.chat": true,
+  "githubPullRequests.experimental.notificationsView": true,
+  "githubPullRequests.experimental.useQuickChat": true,
+  "githubPullRequests.notifications": "pullRequests",
+  "githubPullRequests.pullBranch": "always",
+  "git.autoStash": true,
+  "githubPullRequests.pullPullRequestBranchBeforeCheckout": "pullAndUpdateBase",
+  "githubPullRequests.pullRequestDescription": "Copilot",
+  "githubPullRequests.queries": [
+    {
+      "label": "Waiting For My Review",
+      "query": "repo:${owner}/${repository} is:open review-requested:${user}"
+    },
+    {
+      "label": "Assigned To Me",
+      "query": "repo:${owner}/${repository} is:open assignee:${user}"
+    },
+    {
+      "label": "Created By Me",
+      "query": "repo:${owner}/${repository} is:open author:${user}"
+    }
+  ],
+  "github.copilot.renameSuggestions.triggerAutomatically": true,
+  "github.copilot.chat.agent.runTasks": true,
+  "github.gitAuthentication": true,
+  "github.copilot.chat.editor.temporalContext.enabled": true,
+  "github.copilot.chat.edits.temporalContext.enabled": true,
+  "github.copilot.chat.followUps": "always",
+  "github.copilot.chat.fixTestFailure.enabled": true,
+  "github.copilot.chat.generateTests.codeLens": true,
+  "github.copilot.chat.reviewSelection.enabled": true,
+  "github.copilot.chat.scopeSelection": true,
+  "github.copilot.chat.setupTests.enabled": true,
+  "github.copilot.chat.startDebugging.enabled": true,
+  "github.copilot.chat.terminalChatLocation": "terminal",
+  "githubIssues.userCompletions.enabled": true,
+  "githubIssues.issueCompletions.enabled": true,
+  "editor.suggest.showIssues": true,
+  "terminal.integrated.shellIntegration.enabled": true
 }

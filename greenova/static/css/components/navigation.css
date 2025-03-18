@@ -1,13 +1,14 @@
 /* Navigation */
 
-/* Header */
+/* Header for the document, is large and at the top */
 header {
 
   background: var(--greenova-green-secondary);
 }
 
-/* If it is a child of the body */
+/* If it is a child of the body, if it is a header which is not the top. */
 body>header {
+  /* This width attribute makes it 100% of the page taking away any spacing that would be occupied by the body */
   max-width: calc(100% - 2 * var(--greenova-head-spacing));
   margin: 0 var(--greenova-head-spacing);
   padding: var(--greenova-padding);
@@ -77,4 +78,12 @@ ul.theme-container {
 ul.theme-container>li {
   margin: var(--greenova-spacing-small) 0;
   padding: 0;
+}
+
+/* Chatbot and user login */
+div.auth-status-container {
+  /* We want these elements to be spaced vertically and in columns */
+  display: flex;
+  flex-direction: row;
+  gap: var(--greenova-spacing-small);
 }

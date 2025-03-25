@@ -88,8 +88,12 @@ yarn.lock
 !.env.example
 !.env.vault.example
 .env.keys
+!.envrc
 
 .env*
 .flaskenv*
 !.env.project
 !.env.vault
+.venvmake/
+*.bak
+None

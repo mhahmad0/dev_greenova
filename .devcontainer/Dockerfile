@@ -14,7 +14,11 @@ WORKDIR /workspaces/greenova
 COPY requirements.txt package.json ./
 
 # install Node.js dependencies
+<<<<<<< HEAD
 RUN npm install
+=======
+RUN npm install 
+>>>>>>> b3f8326 (release(v0.0.4): comprehensive platform enhancements and new features (#6))
 
 # install Python dependencies
 RUN pip install -r requirements.txt -c constraints.txt --no-deps
@@ -24,4 +28,8 @@ RUN pip install -r requirements.txt -c constraints.txt --no-deps
 ENV PYTHONUNBUFFERED=1
 
 # lunch bash
+<<<<<<< HEAD
 CMD ["/bin/bash"]
+=======
+CMD ["/bin/bash"]
+>>>>>>> b3f8326 (release(v0.0.4): comprehensive platform enhancements and new features (#6))

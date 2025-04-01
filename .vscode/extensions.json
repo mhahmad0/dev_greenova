@@ -30,6 +30,8 @@
     "bradlc.vscode-tailwindcss",
     "esbenp.prettier-vscode",
     "pycqa.bandit-pycqa",
-    "mtxr.sqltools"
+    "mtxr.sqltools",
+    "bmalehorn.vscode-fish",
+    "willumz.generic-pseudocode"
   ]
 }

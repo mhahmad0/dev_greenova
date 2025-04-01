@@ -131,7 +131,10 @@
           ".venv": true
         },
         "snyk.advanced.cliPath": "/usr/local/share/nvm/versions/node/v18.20.7/bin/snyk",
-        "snyk.trustedFolders": ["/workspaces/greenova/", "/home/vscode/"],
+        "snyk.trustedFolders": [
+          "/workspaces/greenova/",
+          "/home/vscode/"
+        ],
         "terminal.integrated.cwd": "${containerWorkspaceFolder}",
         "terminal.integrated.defaultProfile.linux": "fish",
         "terminal.integrated.env.linux": {
@@ -181,6 +184,9 @@
       "installDirectlyFromGitHubRelease": true,
       "version": "latest"
     },
+    "ghcr.io/kreemer/features/chrometesting:1": {
+      "version": "Stable"
+    },
     "ghcr.io/marcozac/devcontainer-features/shellcheck:1": {
       "version": "latest"
     },
@@ -188,7 +194,9 @@
       "version": "latest"
     }
   },
-  "forwardPorts": [8000],
+  "forwardPorts": [
+    8000
+  ],
   "image": "mcr.microsoft.com/devcontainers/python:3.9",
   "mounts": [
     "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=delegated",

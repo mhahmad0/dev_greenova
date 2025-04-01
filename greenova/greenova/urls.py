@@ -44,10 +44,11 @@ urlpatterns: List[Union[URLPattern, URLResolver]] = [
     path('admin/', admin.site.urls),
 
     # Authentication URLs
+    path('accounts/', include('allauth.urls')),
+    path('dashboard/', include('dashboard.urls', namespace="dashboard")),
+    path('chatbot/', include('chatbot.urls', namespace="chatbot")),
+    path('users/', include('users.urls', namespace="users")),
     path('authentication/', include('allauth.urls')),
-    path('dashboard/', include('dashboard.urls', namespace='dashboard')),
-    path('chatbot/', include('chatbot.urls', namespace='chatbot')),
-    path('users/', include('users.urls', namespace='users')),
     path('projects/', include('projects.urls')),
     path('obligations/', include('obligations.urls')),
     # Use a different namespace for the /chat/ URL pattern

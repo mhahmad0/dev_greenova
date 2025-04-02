@@ -32,7 +32,9 @@
         "bradlc.vscode-tailwindcss",
         "pycqa.bandit-pycqa",
         "mtxr.sqltools",
-        "ms-vscode.vscode-copilot-data-analysis"
+        "ms-vscode.vscode-copilot-data-analysis",
+        "bmalehorn.vscode-fish",
+        "willumz.generic-pseudocode"
       ],
       "settings": {
         "[django-html]": {
@@ -52,12 +54,7 @@
           "python.analysis.languageServerMode": "Jedi",
           "python.analysis.nodeExecutable": "/home/vscode/.nvm/versions/node/v18.20.7/bin/node",
           "python.analysis.typeCheckingMode": "strict",
-          "python.autoComplete.extraPaths": [
-            "${containerWorkspaceFolder}/.venv/lib/python3.9/site-packages"
-          ],
-          "python.defaultInterpreterPath": "${containerWorkspaceFolder}/.venv/bin/python",
-          "python.envFile": "${containerWorkspaceFolder}/.env",
-          "python.languageServer": "Pylance",
+          "python.languageServer": "Jedi",
           "python.linting.enabled": true,
           "python.linting.pylintEnabled": true,
           "python.terminal.activateEnvInCurrentTerminal": true,
@@ -139,7 +136,6 @@
         "terminal.integrated.defaultProfile.linux": "fish",
         "terminal.integrated.env.linux": {
           "PATH": "${containerWorkspaceFolder}/.venv/bin:${containerEnv:PATH}",
-          "PYTHONPATH": "${containerWorkspaceFolder}",
           "PYTHONSTARTUP": "${containerWorkspaceFolder}/.devcontainer/pythonstartup.py",
           "PYTHONUNBUFFERED": "1",
           "VENV_PATH": "${containerWorkspaceFolder}/.venv"
@@ -153,25 +149,13 @@
       "version": "latest"
     },
     "ghcr.io/devcontainers-extra/features/fish-apt-get:1": {},
-    "ghcr.io/devcontainers-extra/features/isort:2": {
-      "version": "latest"
-    },
     "ghcr.io/devcontainers-extra/features/markdownlint-cli2:1": {
-      "version": "latest"
-    },
-    "ghcr.io/devcontainers-extra/features/mypy:2": {
       "version": "latest"
     },
     "ghcr.io/devcontainers-extra/features/pre-commit:2": {
       "version": "latest"
     },
-    "ghcr.io/devcontainers-extra/features/prettier:1": {
-      "version": "latest"
-    },
     "ghcr.io/devcontainers-extra/features/protoc:1": {
-      "version": "latest"
-    },
-    "ghcr.io/devcontainers-extra/features/pylint:2": {
       "version": "latest"
     },
     "ghcr.io/devcontainers-extra/features/shfmt:1": {
@@ -183,9 +167,6 @@
     "ghcr.io/devcontainers/features/github-cli:1": {
       "installDirectlyFromGitHubRelease": true,
       "version": "latest"
-    },
-    "ghcr.io/kreemer/features/chrometesting:1": {
-      "version": "Stable"
     },
     "ghcr.io/marcozac/devcontainer-features/shellcheck:1": {
       "version": "latest"

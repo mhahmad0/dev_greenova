@@ -35,7 +35,8 @@
         "ms-vscode.vscode-copilot-data-analysis",
         "bmalehorn.vscode-fish",
         "willumz.generic-pseudocode",
-        "stylelint.vscode-stylelint"
+        "stylelint.vscode-stylelint",
+        "wholroyd.jinja"
       ],
       "settings": {
         "[django-html]": {
@@ -90,7 +91,8 @@
           "poetry.toml": "toml",
           "pyproject.toml": "toml",
           "requirements*.txt": "pip-requirements",
-          "tailwindcss.lint": "json"
+          "tailwindcss.lint": "json",
+          ".jinja": "jinja"
         },
         "files.exclude": {
           "**/*.pyc": true,
@@ -129,10 +131,7 @@
           ".venv": true
         },
         "snyk.advanced.cliPath": "/usr/local/share/nvm/versions/node/v18.20.7/bin/snyk",
-        "snyk.trustedFolders": [
-          "/workspaces/greenova/",
-          "/home/vscode/"
-        ],
+        "snyk.trustedFolders": ["/workspaces/greenova/", "/home/vscode/"],
         "terminal.integrated.cwd": "${containerWorkspaceFolder}",
         "terminal.integrated.defaultProfile.linux": "fish",
         "terminal.integrated.env.linux": {
@@ -176,9 +175,7 @@
       "version": "latest"
     }
   },
-  "forwardPorts": [
-    8000
-  ],
+  "forwardPorts": [8000],
   "image": "mcr.microsoft.com/devcontainers/python:3.9",
   "mounts": [
     "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=delegated",

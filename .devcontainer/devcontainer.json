@@ -36,7 +36,11 @@
         "bmalehorn.vscode-fish",
         "willumz.generic-pseudocode",
         "stylelint.vscode-stylelint",
-        "wholroyd.jinja"
+        "wholroyd.jinja",
+        "rarnoldmobile.todo-txt",
+        "MermaidChart.vscode-mermaid-chart",
+        "GitHub.vscode-github-actions",
+        "psioniq.psi-header"
       ],
       "settings": {
         "[django-html]": {
@@ -84,6 +88,7 @@
           "*.txt": "plaintext",
           ".bandit": "yaml",
           ".env*": "dotenv",
+          ".jinja": "jinja",
           ".pylintrc": "ini",
           ".pylintrc-django": "ini",
           "constraints*.txt": "pip-requirements",
@@ -131,7 +136,9 @@
           ".venv": true
         },
         "snyk.advanced.cliPath": "/usr/local/share/nvm/versions/node/v18.20.7/bin/snyk",
-        "snyk.trustedFolders": ["/workspaces/greenova/", "/home/vscode/"],
+        "snyk.trustedFolders": [
+          "/workspaces/greenova/"
+        ],
         "terminal.integrated.cwd": "${containerWorkspaceFolder}",
         "terminal.integrated.defaultProfile.linux": "fish",
         "terminal.integrated.env.linux": {

@@ -1,0 +1,9 @@
+{% for obligation in obligations %}
+  <div class="obligation-item">
+    <strong>{{ obligation.name }}</strong> - {{ obligation.due_date }}
+  </div>
+{% empty %}
+  <p>
+No obligations match this filter.
+  </p>
+{% endfor %}

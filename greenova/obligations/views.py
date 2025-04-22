@@ -32,14 +32,21 @@ logger = logging.getLogger(__name__)
 
 @method_decorator(cache_control(max_age=300), name='dispatch')
 @method_decorator(vary_on_headers('HX-Request'), name='dispatch')
-class ObligationSummaryView(LoginRequiredMixin, TemplateView):
-    template_name = 'obligations/components/_obligations_summary.html'
+class ObligationSummaryView(View):
+    def get(self, request, *args, **kwargs):
+        status = request.GET.get('status')
+        procedure = request.GET.get('procedure')
+        project_id = request.GET.get('project_id')
 
-    def get_template_names(self):
-        """Return appropriate template based on request type."""
-        if self.request.htmx:
-            return ['obligations/components/_obligations_summary.html']
-        return [self.template_name]
+        obligations = Obligation.objects.filter(
+            status=status,
+            procedure__name=procedure,
+            project__id=project_id
+        )
+
+        return render(request, 'obligations/obligation_list.html', {
+            'obligations': obligations
+        })
 
     def apply_filters(self, queryset: QuerySet, filters: Dict[str, Any]) -> QuerySet:
         """Apply filters to the queryset."""

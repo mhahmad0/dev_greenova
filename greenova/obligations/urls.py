@@ -2,7 +2,7 @@ from django.shortcuts import redirect
 from django.urls import path
 
 from . import views
-from .views import ToggleCustomAspectView
+from .views import ObligationSummaryView, ToggleCustomAspectView
 
 app_name = 'obligations'
 
@@ -15,7 +15,7 @@ def root_redirect(request):
 
 urlpatterns = [
     # Summary view that shows obligations list
-    path('summary/', views.ObligationSummaryView.as_view(), name='summary'),
+    path('summary/', ObligationSummaryView.as_view(), name='summary'),
     path('count-overdue/', views.TotalOverdueObligationsView.as_view(), name='overdue'),
     # Make the root URL properly handle project_id parameter by redirecting
     path('', root_redirect, name='index'),

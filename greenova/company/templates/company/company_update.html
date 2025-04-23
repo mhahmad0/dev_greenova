@@ -2,23 +2,23 @@
 {% load static %}
 
 {% block title %}
-{{ action }} Company
+Update Company
 {% endblock title %}
 
 {% block content %}
   <article>
     <header>
       <h1>
-{{ action }} Company
+Update Company
       </h1>
     </header>
 
     <div class="form-container">
       <form method="post" class="form">
 {% csrf_token %}
-      {{ form.as_p }}
+        {{ form.as_p }}
         <button type="submit" class="btn btn-primary">
-Save
+Save Changes
         </button>
       </form>
     </div>

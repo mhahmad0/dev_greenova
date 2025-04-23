@@ -4,18 +4,21 @@ from typing import Any, Dict, Optional
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core.paginator import Page, Paginator
 from django.db.models import Count, Q, QuerySet
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views.decorators.http import require_http_methods
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 from .forms import (AddUserToCompanyForm, CompanyDocumentForm, CompanyForm,
                     CompanyMembershipForm, CompanySearchForm)
 from .models import Company, CompanyDocument, CompanyMembership
+from .mixins import CompanyAccessMixin
 
 logger = logging.getLogger(__name__)
 
@@ -37,66 +40,34 @@ def is_company_admin(user: User) -> bool:
     ).exists()
 
 
-@login_required
-def company_list(request: HttpRequest) -> HttpResponse:
-    """View for listing companies."""
-    search_form = CompanySearchForm(request.GET)
-    companies_query: QuerySet[Company] = Company.objects.all()
+class CompanyListView(LoginRequiredMixin, CompanyAccessMixin, ListView):
+    model = Company
+    template_name = 'company/company_list.html'
 
-    # Apply filters if form is submitted
-    if search_form.is_valid():
-        search = search_form.cleaned_data.get('search')
-        company_type = search_form.cleaned_data.get('company_type')
-        industry = search_form.cleaned_data.get('industry')
-        is_active = search_form.cleaned_data.get('is_active')
+    def get_queryset(self):
+        return self.request.user.companies.all()
 
-        if search:
-            companies_query = companies_query.filter(
-                Q(name__icontains=search) |
-                Q(description__icontains=search)
-            )
+class CompanyCreateView(LoginRequiredMixin, CompanyAccessMixin, CreateView):
+    model = Company
+    fields = ['name', 'description']
+    template_name = 'company/company_form.html'
+    success_url = reverse_lazy('company:list')
 
-        if company_type:
-            companies_query = companies_query.filter(company_type=company_type)
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        self.object.users.add(self.request.user)
+        return response
 
-        if industry:
-            companies_query = companies_query.filter(industry=industry)
+class CompanyUpdateView(LoginRequiredMixin, CompanyAccessMixin, UpdateView):
+    model = Company
+    fields = ['name', 'description']
+    template_name = 'company/company_form.html'
+    success_url = reverse_lazy('company:list')
 
-        if is_active is not None:
-            companies_query = companies_query.filter(is_active=is_active)
-
-    # Add member count annotation
-    companies_query = companies_query.annotate(member_count=Count('members'))
-
-    # Handle pagination
-    paginator = Paginator(companies_query, 10)
-    page_number = int(request.GET.get('page', 1))
-    companies: Page[Company] = paginator.get_page(page_number)
-
-    # Check user permissions for each company
-    user_permissions: Dict[int, Optional[str]] = {}
-    if not request.user.is_superuser:
-        for company in companies:
-            try:
-                membership = CompanyMembership.objects.get(
-                    company=company,
-                    user=request.user
-                )
-                user_permissions[company.id] = membership.role
-            except CompanyMembership.DoesNotExist:
-                user_permissions[company.id] = None
-
-    context: Dict[str, Any] = {
-        'companies': companies,
-        'search_form': search_form,
-        'user_permissions': user_permissions,
-        'page_obj': companies,
-        'can_create': is_company_admin(request.user),
-    }
-
-    if hasattr(request, 'htmx') and request.htmx:
-        return render(request, 'company/partials/company_list.html', context)
-    return render(request, 'company/company_list.html', context)
+class CompanyDeleteView(LoginRequiredMixin, CompanyAccessMixin, DeleteView):
+    model = Company
+    template_name = 'company/company_confirm_delete.html'
+    success_url = reverse_lazy('company:list')
 
 
 @login_required
@@ -207,7 +178,7 @@ def company_edit(request: HttpRequest, company_id: int) -> HttpResponse:
 
     if request.method == 'POST':
         form = CompanyForm(request.POST, request.FILES, instance=company)
-        if form.is_valid():
+        if form is_valid():
             company: Company = form.save()
             messages.success(request, f"Company '{company.name}' updated successfully!")
 

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+View Company
+{% endblock title %}
+
+{% block content %}
+  <article>
+    <header>
+      <h1>
+{{ company.name }}
+      </h1>
+    </header>
+
+    <div class="details-container">
+      <p>
+        <strong>ID:</strong> {{ company.id }}
+      </p>
+      <p>
+        <strong>Name:</strong> {{ company.name }}
+      </p>
+      <p>
+        <strong>Description:</strong> {{ company.description }}
+      </p>
+    </div>
+
+    <footer>
+      <a href="{% url 'company_update' company.id %}"
+         class="btn btn-secondary">Edit</a>
+      <form method="post"
+            action="{% url 'company_delete' company.id %}"
+            style="display:inline">
+{% csrf_token %}
+        <button type="submit" class="btn btn-danger">
+Delete
+        </button>
+      </form>
+    </footer>
+  </article>
+{% endblock content %}

@@ -11,14 +11,16 @@ logger = logging.getLogger(__name__)
 
 class Company(models.Model):
     """Model representing a company or organization."""
-    name = models.CharField(max_length=255, unique=True)
     logo = models.ImageField(upload_to='company_logos/', blank=True, null=True)
     description = models.TextField(blank=True)
     website = models.URLField(blank=True)
-    address = models.TextField(blank=True)
     phone = models.CharField(max_length=50, blank=True)
     email = models.EmailField(blank=True)
-
+    name = models.CharField(max_length=255, unique=True) # Company name must be unique
+    address = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True) # Automatically set on creation
+    updated_at = models.DateTimeField(auto_now=True)
+    users = models.ManyToManyField(User, related_name="companies") # Link many users to many companies
     # Company type choices
     COMPANY_TYPES = [
         ('client', 'Client'),
@@ -225,3 +227,14 @@ class CompanyDocument(models.Model):
 
     def __str__(self) -> str:
         return f'{self.name} ({self.company.name})'
+
+
+class Obligation(models.Model):
+    # ...existing fields...
+    company = models.ForeignKey(
+        'company.Company',
+        on_delete=models.CASCADE,
+        related_name='obligations',
+        help_text='The company associated with this obligation.'
+    )
+    # ...existing fields...

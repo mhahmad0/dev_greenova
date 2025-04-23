@@ -11,6 +11,8 @@ from django.core.exceptions import PermissionDenied
 from django.db.models import Model
 from django.http import HttpRequest
 
+from .models import Company
+
 # Configure logger
 logger = logging.getLogger(__name__)
 
@@ -49,3 +51,8 @@ class BaseModelAdmin(admin.ModelAdmin):
             )
 
         return obj
+
+@admin.register(Company)
+class CompanyAdmin(admin.ModelAdmin):
+    list_display = ('name', 'created_at')
+    search_fields = ('name',)

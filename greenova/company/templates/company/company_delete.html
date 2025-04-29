@@ -19,10 +19,14 @@ Are you sure you want to delete the company "{{ company.name }}"?
 
     <form method="post">
 {% csrf_token %}
-      <button type="submit" class="btn btn-danger">
+      <button type="submit"
+              class="btn btn-danger"
+              aria-label="Confirm delete company">
 Confirm Delete
       </button>
-      <a href="{% url 'company_list' %}" class="btn btn-secondary">Cancel</a>
+      <a href="{% url 'company:list' %}"
+         class="btn btn-secondary"
+         aria-label="Cancel deletion">Cancel</a>
     </form>
   </article>
 {% endblock content %}

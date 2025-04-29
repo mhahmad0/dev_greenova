@@ -1,0 +1,29 @@
+{% block form_content %}
+  <form method="post" class="form" novalidate>
+{% csrf_token %}
+    <fieldset>
+      <legend>
+{{ legend }}
+      </legend>
+      {% for field in form %}
+        <div class="form-group">
+          <label for="{{ field.id_for_label }}">
+{{ field.label }}
+          </label>
+          {{ field }}
+          {% if field.help_text %}
+            <small>{{ field.help_text }}</small>
+          {% endif %}
+          {% for error in field.errors %}
+            <div class="error">
+{{ error }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </fieldset>
+    <button type="submit" class="btn btn-primary">
+{{ button_text }}
+    </button>
+  </form>
+{% endblock form_content %}

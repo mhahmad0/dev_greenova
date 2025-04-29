@@ -23,14 +23,23 @@ View Company
       <p>
         <strong>Description:</strong> {{ company.description }}
       </p>
+      <p>
+        <strong>Address:</strong> {{ company.address }}
+      </p>
+      <p>
+        <strong>Contact Email:</strong> {{ company.contact_email }}
+      </p>
+      <p>
+        <strong>Phone:</strong> {{ company.phone }}
+      </p>
     </div>
 
     <footer>
-      <a href="{% url 'company_update' company.id %}"
+      <a href="{% url 'company:update' company.id %}"
          class="btn btn-secondary">Edit</a>
       <form method="post"
-            action="{% url 'company_delete' company.id %}"
-            style="display:inline">
+            action="{% url 'company:delete' company.id %}"
+            class="inline-form">
 {% csrf_token %}
         <button type="submit" class="btn btn-danger">
 Delete

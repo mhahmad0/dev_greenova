@@ -6,7 +6,7 @@ app_name = 'company'
 
 urlpatterns = [
     # Company list and detail
-    path('', views.company_list, name='list'),
+    path('list/', views.company_list, name='list'),
     path('search/', views.company_list, name='search'),
     path('<int:company_id>/', views.company_detail, name='detail'),
 

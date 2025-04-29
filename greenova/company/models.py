@@ -56,13 +56,6 @@ class Company(models.Model):
     # Company status
     is_active = models.BooleanField(default=True)
 
-    # Many-to-many relationship with users
-    members = models.ManyToManyField(
-        User,
-        through='CompanyMembership',
-        related_name='companies'
-    )
-
     # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -133,6 +126,11 @@ class Company(models.Model):
         """Remove a user from the company."""
         CompanyMembership.objects.filter(company=self, user=user).delete()
         logger.info(f'Removed user {user.username} from company {self.name}')
+
+    def clean(self):
+        """Ensure data integrity for Company-User relationship."""
+        if self.users.count() == 0:
+            raise ValidationError("A company must have at least one user.")
 
 
 class CompanyMembership(models.Model):
@@ -230,11 +228,28 @@ class CompanyDocument(models.Model):
 
 
 class Obligation(models.Model):
-    # ...existing fields...
+    """Model representing an environmental obligation."""
     company = models.ForeignKey(
         'company.Company',
         on_delete=models.CASCADE,
         related_name='obligations',
         help_text='The company associated with this obligation.'
     )
-    # ...existing fields...
+    name = models.CharField(max_length=255, unique=True)
+    description = models.TextField(blank=True)
+    due_date = models.DateField()
+    status = models.CharField(
+        max_length=50,
+        choices=[('not_started', 'Not Started'), ('in_progress', 'In Progress'), ('completed', 'Completed')],
+        default='not_started'
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['due_date']
+        verbose_name = 'Obligation'
+        verbose_name_plural = 'Obligations'
+
+    def __str__(self):
+        return self.name

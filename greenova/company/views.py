@@ -17,8 +17,8 @@ from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 from .forms import (AddUserToCompanyForm, CompanyDocumentForm, CompanyForm,
                     CompanyMembershipForm, CompanySearchForm)
-from .models import Company, CompanyDocument, CompanyMembership
 from .mixins import CompanyAccessMixin
+from .models import Company, CompanyDocument, CompanyMembership
 
 logger = logging.getLogger(__name__)
 
@@ -178,7 +178,7 @@ def company_edit(request: HttpRequest, company_id: int) -> HttpResponse:
 
     if request.method == 'POST':
         form = CompanyForm(request.POST, request.FILES, instance=company)
-        if form is_valid():
+        if form.is_valid():
             company: Company = form.save()
             messages.success(request, f"Company '{company.name}' updated successfully!")
 

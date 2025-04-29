@@ -25,7 +25,8 @@ Companies
       <form class="search-form"
             id="company-search-form"
             hx-post="{% url 'company:search' %}"
-            hx-target="#company-list-container">
+            hx-target="#company-list-container"
+            hx-swap="innerHTML">
         <div class="form-row">
           <div class="form-group">
             <label for="{{ search_form.search.id_for_label }}">
@@ -60,16 +61,5 @@ Filter
     <div id="company-list-container" class="table-container">
 {% include "company/partials/company_list.html" %}
     </div>
-
-    <h2>
-Your Companies
-    </h2>
-    <ul>
-      {% for company in object_list %}
-        <li>
-{{ company.name }}
-        </li>
-      {% endfor %}
-    </ul>
   </article>
 {% endblock %}

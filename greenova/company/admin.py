@@ -53,6 +53,7 @@ class BaseModelAdmin(admin.ModelAdmin):
         return obj
 
 @admin.register(Company)
-class CompanyAdmin(admin.ModelAdmin):
-    list_display = ('name', 'created_at')
+class CompanyAdmin(BaseModelAdmin):
+    list_display = ('name', 'company_type', 'industry', 'is_active', 'created_at')
+    list_filter = ('company_type', 'is_active')
     search_fields = ('name',)

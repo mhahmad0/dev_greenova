@@ -1,13 +1,14 @@
 from django.urls import path
 
 from . import views
+from .views import CompanyListView
 
 app_name = 'company'
 
 urlpatterns = [
     # Company list and detail
-    path('list/', views.company_list, name='list'),
-    path('search/', views.company_list, name='search'),
+    path('list/', CompanyListView.as_view(), name='list'),
+    path('search/', CompanyListView.as_view(), name='search'),
     path('<int:company_id>/', views.company_detail, name='detail'),
 
     # Company CRUD operations

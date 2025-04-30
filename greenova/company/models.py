@@ -56,10 +56,6 @@ class Company(models.Model):
     # Company status
     is_active = models.BooleanField(default=True)
 
-    # Timestamps
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
     @staticmethod
     def get_default_company():
         """

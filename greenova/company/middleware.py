@@ -21,7 +21,7 @@ class ActiveCompanyMiddleware(MiddlewareMixin):
             if active_company_id:
                 try:
                     company = Company.objects.get(id=active_company_id)
-                    if request.user not in company.members.all():
+                    if request.user not in company.users.all():
                         logger.warning(
                             f"User {request.user} is not a member of company {company}."
                         )

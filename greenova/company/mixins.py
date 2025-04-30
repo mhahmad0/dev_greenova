@@ -15,7 +15,7 @@ class CompanyAccessMixin:
         if not company:
             raise PermissionDenied("No active company found. Please select a company.")
 
-        if not hasattr(company, 'members') or not company.members.filter(id=request.user.id).exists():
+        if not hasattr(company, 'users') or not company.users.filter(id=request.user.id).exists():
             raise PermissionDenied("You do not have access to this company or the company configuration is invalid.")
 
         return super().dispatch(request, *args, **kwargs)

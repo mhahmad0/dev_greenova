@@ -80,7 +80,9 @@ All Responsibilities
               </option>
               {% for resp in available_responsibilities %}
                 <option value="{{ resp }}"
-                        {% if filter_responsibility == resp %} selected {% endif %}>
+                        {% if filter_responsibility == resp %}
+                          selected
+                        {% endif %}>
                   {{ resp }}
 
                 </option>
@@ -96,14 +98,30 @@ Status
               <option value="">
 All Statuses
               </option>
-              {% for status_value, status_label in status_options %}
-                <option value="{{ status_value }}"
-                        {% if filter_status == status_value %} selected {% endif %}>
-                  {{ status_label }}
-
-                </option>
-              {% endfor %}
-
+              <option value="not_started"
+                      {% if filter_status == 'not_started' %}
+                        selected
+                      {% endif %}>
+Not Started
+              </option>
+              <option value="in_progress"
+                      {% if filter_status == 'in_progress' %}
+                        selected
+                      {% endif %}>
+In Progress
+              </option>
+              <option value="completed"
+                      {% if filter_status == 'completed' %}
+                        selected
+                      {% endif %}>
+Completed
+              </option>
+              <option value="overdue"
+                      {% if filter_status == 'overdue' %}
+                        selected
+                      {% endif %}>
+Overdue
+              </option>
             </select>
           </div>
           <div class="filter-buttons">
@@ -111,14 +129,18 @@ All Statuses
               <input type="checkbox"
                      name="lookahead"
                      value="14days"
-                     {% if filter_lookahead %} checked {% endif %} />
+                     {% if filter_lookahead %}
+                       checked
+                     {% endif %} />
               14-Day Lookahead
             </label>
             <label>
               <input type="checkbox"
                      name="overdue"
                      value="true"
-                     {% if filter_overdue %} checked {% endif %} />
+                     {% if filter_overdue %}
+                       checked
+                     {% endif %} />
               Overdue Only
             </label>
           </div>
@@ -221,7 +243,7 @@ Total
                   <td>
                     <a href="#"
                        class="status-count-link"
-                       hx-get="{% url 'obligations:summary' %}?status=not_started&procedure={{ item.name }}&project_id={{ mechanism.project.id }}"
+                       hx-get="{% url 'obligations:summary' %}?status=not_started&amp;procedure={{ item.name }}&amp;project_id={{ mechanism.project.id }}"
                        hx-target="#obligation-list-container"
                        hx-swap="innerHTML"
                        hx-trigger="click"
@@ -232,7 +254,7 @@ Total
                   <td>
                     <a href="#"
                        class="status-count-link"
-                       hx-get="{% url 'obligations:summary' %}?status=in_progress&procedure={{ item.name }}&project_id={{ mechanism.project.id }}"
+                       hx-get="{% url 'obligations:summary' %}?status=in_progress&amp;procedure={{ item.name }}&amp;project_id={{ mechanism.project.id }}"
                        hx-target="#obligation-list-container"
                        hx-swap="innerHTML"
                        hx-trigger="click"
@@ -243,7 +265,7 @@ Total
                   <td>
                     <a href="#"
                        class="status-count-link"
-                       hx-get="{% url 'obligations:summary' %}?status=completed&procedure={{ item.name }}&project_id={{ mechanism.project.id }}"
+                       hx-get="{% url 'obligations:summary' %}?status=completed&amp;procedure={{ item.name }}&amp;project_id={{ mechanism.project.id }}"
                        hx-target="#obligation-list-container"
                        hx-swap="innerHTML"
                        hx-trigger="click"
@@ -254,7 +276,7 @@ Total
                   <td>
                     <a href="#"
                        class="status-count-link"
-                       hx-get="{% url 'obligations:summary' %}?status=overdue&procedure={{ item.name }}&project_id={{ mechanism.project.id }}"
+                       hx-get="{% url 'obligations:summary' %}?status=overdue&amp;procedure={{ item.name }}&amp;project_id={{ mechanism.project.id }}"
                        hx-target="#obligation-list-container"
                        hx-swap="innerHTML"
                        hx-trigger="click"

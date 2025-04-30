@@ -1,6 +1,11 @@
 {% for obligation in obligations %}
   <div class="obligation-item">
-    <strong>{{ obligation.name }}</strong> - {{ obligation.due_date }}
+    <strong>{{ obligation.obligation_number }}</strong> -
+    {{ obligation.action_due_date|date:"F j, Y" }}
+    <p>
+{{ obligation.description|truncatechars:50 }}
+    </p>
+    <span>Status: {{ obligation.status }}</span>
   </div>
 {% empty %}
   <p>

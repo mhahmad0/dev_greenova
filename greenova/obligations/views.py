@@ -38,14 +38,30 @@ class ObligationSummaryView(View):
         procedure = request.GET.get('procedure')
         project_id = request.GET.get('project_id')
 
-        obligations = Obligation.objects.filter(
-            status=status,
-            procedure__name=procedure,
-            project__id=project_id
-        )
+        obligations = Obligation.objects.all()
+
+        try:
+            if status:
+                obligations = obligations.filter(status=status)
+
+            if procedure:
+                obligations = obligations.filter(procedure=procedure)  # Updated filter
+
+            if project_id:
+                obligations = obligations.filter(project__id=project_id)
+        except Exception as e:
+            logger.error(f"Error filtering obligations: {str(e)}")
+            return render(request, 'obligations/obligation_list.html', {
+                'error': f"An error occurred: {str(e)}"
+            })
+
+        paginator = Paginator(obligations, 15)  # Added pagination
+        page_number = request.GET.get('page', 1)
+        page_obj = paginator.get_page(page_number)
 
         return render(request, 'obligations/obligation_list.html', {
-            'obligations': obligations
+            'obligations': page_obj,
+            'page_obj': page_obj
         })
 
     def apply_filters(self, queryset: QuerySet, filters: Dict[str, Any]) -> QuerySet:

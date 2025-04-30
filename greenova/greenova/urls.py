@@ -16,7 +16,7 @@ def home_router(
     request: HttpRequest
 ) -> Union[HttpResponseRedirect, HttpResponsePermanentRedirect]:
     """Route to appropriate home page based on auth status."""
-    logger.debug('Home router - User authenticated: %s', request.user.is_authenticated)
+    logger.debug(f'Home router - User authenticated: {request.user.is_authenticated}')
 
     # If user is not authenticated, always go to landing page
     if not request.user.is_authenticated:
@@ -44,7 +44,10 @@ urlpatterns: List[Union[URLPattern, URLResolver]] = [
     path('admin/', admin.site.urls),
 
     # Authentication URLs
-    path('authentication/', include(('allauth.urls', 'authentication'), namespace='authentication')),
+# Authentication URLs
+path('authentication/', include(('allauth.urls', 'authentication'), namespace='authentication')),
+path('accounts/', include('allauth.urls')),  # Optional: keep for backward compatibility
+
     path('dashboard/', include('dashboard.urls', namespace='dashboard')),
     path('chatbot/', include('chatbot.urls', namespace='chatbot')),
     path('users/', include('users.urls', namespace='users')),

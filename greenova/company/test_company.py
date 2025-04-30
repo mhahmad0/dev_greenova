@@ -253,7 +253,8 @@ class TestCompanyCreation:
 
         # Validate redirection to login page
         assert response.status_code == 302
-        assert response.url == '/accounts/login/?next=/company/create/'
+        login_url = reverse(settings.LOGIN_URL)
+        assert response.url == f'{login_url}?next=/company/create/'
 
     @pytest.mark.parametrize('authenticated_client', ['superuser'], indirect=True)
     def test_company_create_view_superuser(self, authenticated_client):

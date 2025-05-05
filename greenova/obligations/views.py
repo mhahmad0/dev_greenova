@@ -45,7 +45,7 @@ class ObligationSummaryView(View):
                 obligations = obligations.filter(status=status)
 
             if procedure:
-                obligations = obligations.filter(procedure=procedure)  # Updated filter
+                obligations = obligations.filter(procedure__id=procedure)  # Use procedure ID for filtering
 
             if project_id:
                 obligations = obligations.filter(project__id=project_id)

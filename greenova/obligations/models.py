@@ -138,8 +138,6 @@ class Obligation(models.Model):
     )
     supporting_information: Any = models.TextField(blank=True, null=True)
     general_comments: Any = models.TextField(blank=True, null=True)
-    compliance_comments: Any = models.TextField(blank=True, null=True)
-    non_conformance_comments: Any = models.TextField(blank=True, null=True)
     evidence_notes: Any = models.TextField(
         blank=True, null=True, help_text="Notes about the uploaded evidence"
     )

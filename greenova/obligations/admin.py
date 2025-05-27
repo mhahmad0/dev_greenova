@@ -196,8 +196,6 @@ class ObligationAdmin(admin.ModelAdmin):
                     'project_phase',
                     'supporting_information',
                     'general_comments',
-                    'compliance_comments',
-                    'non_conformance_comments',
                 ]
             },
         ),

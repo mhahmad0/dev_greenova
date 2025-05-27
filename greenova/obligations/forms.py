@@ -606,8 +606,6 @@ class ObligationForm(forms.ModelForm):
             "obligation": forms.Textarea(attrs={"rows": 4}),
             "supporting_information": forms.Textarea(attrs={"rows": 3}),
             "general_comments": forms.Textarea(attrs={"rows": 3}),
-            "compliance_comments": forms.Textarea(attrs={"rows": 3}),
-            "non_conformance_comments": forms.Textarea(attrs={"rows": 3}),
             "evidence_notes": forms.Textarea(attrs={"rows": 2}),
             "notes_for_gap_analysis": forms.Textarea(attrs={"rows": 3}),
             "action_due_date": forms.DateInput(attrs={"type": "date"}),

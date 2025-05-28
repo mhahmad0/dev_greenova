@@ -512,3 +512,22 @@
     -webkit-overflow-scrolling: touch;
   }
 }
+
+/* --- Responsive: Breadcrumbs and navigation for mobile --- */
+@media (max-width: 480px) {
+  .navbar-nav {
+    display: none !important;
+  }
+
+  .navbar-toggle {
+    display: block !important;
+  }
+
+  .breadcrumbs {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    font-size: 0.95rem;
+    padding-bottom: 0.25rem;
+  }
+}

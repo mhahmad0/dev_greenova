@@ -39,6 +39,18 @@
   }
 }
 
+/* --- Responsive: Card grid and spacing for mobile --- */
+@media (max-width: 480px) {
+  .summary-cards,
+  .card-deck {
+    grid-template-columns: 1fr !important;
+  }
+
+  .card {
+    margin-bottom: 1rem;
+  }
+}
+
 /**
  * Copyright 2025 Enveng Group.
  * SPDX-License-Identifier: 	AGPL-3.0-or-later

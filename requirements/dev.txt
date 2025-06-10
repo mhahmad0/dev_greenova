@@ -42,3 +42,4 @@ types-pytz
 types-PyYAML
 types-requests
 types-setuptools
+django>=4.2.22 # not directly required, pinned by Snyk to avoid a vulnerability

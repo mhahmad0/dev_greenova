@@ -2,7 +2,7 @@
   "dependencies": {
     "@picocss/pico": "^2.1.1",
     "@types/gsap": "3.0.0",
-    "cssnano-preset-advanced": "7.0.7",
+    "cssnano-preset-advanced": "7.0.8",
     "gsap": "3.13.0",
     "htmx-ext-class-tools": "2.0.2",
     "htmx-ext-head-support": "2.0.4",

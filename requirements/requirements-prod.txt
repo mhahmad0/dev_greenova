@@ -52,7 +52,7 @@ black==25.1.0
     # via
     #   -c /workspaces/greenova/requirements/constraints.txt
     #   -r /workspaces/greenova/requirements/requirements.in
-brotli==1.1.0
+brotli==1.2.0
     # via
     #   -c /workspaces/greenova/requirements/constraints.txt
     #   -r /workspaces/greenova/requirements/requirements.in
